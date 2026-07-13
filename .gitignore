@@ -1,0 +1,25 @@
+# Runtime vault data — NEVER commit (encrypted, but still: not sample data)
+vault/store.dat
+vault/meta.bin
+vault/app.cfg
+vault/local.key
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Build / packaging
+build/
+dist/
+*.spec
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+desktop.ini
