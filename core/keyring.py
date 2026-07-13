@@ -124,7 +124,12 @@ def enroll(name: str = CRED_NAME, *, replace: bool = True) -> None:
             raise UnlockProviderError(f"Keyring credential '{name}' already exists")
         for item in existing:
             item.delete()
-        collection.create_item("Pass Manager unlock secret", _attrs(name), secrets.token_bytes(SECRET_LEN))
+        collection.create_item(
+            "Pass Manager unlock secret",
+            _attrs(name),
+            secrets.token_bytes(SECRET_LEN),
+            content_type="application/octet-stream",
+        )
     except (UnlockProviderError, UnlockCancelledError):
         raise
     except Exception as exc:
