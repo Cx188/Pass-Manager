@@ -195,6 +195,7 @@ class FramelessWindow(QWidget):
         while self._content_lay.count():
             item = self._content_lay.takeAt(0)
             if item.widget():
+                item.widget().hide()  # deleteLater() alone can leave it painting until the next idle loop
                 item.widget().deleteLater()  # tear down old subtree + its timers
         self._content_lay.addWidget(widget)
 

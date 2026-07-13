@@ -27,7 +27,8 @@ from ui.widgets.meters import StrengthMeter
 _TYPE_META = {
     EntryType.APPLICATION: ("A", "Application", "A desktop or game login", Color.ACCENT),
     EntryType.WEBSITE: ("W", "Website", "A site with a URL", Color.TEAL),
-    EntryType.BACKUP_CODES: ("B", "Backup codes", "A set of one-time codes", Color.AMBER),
+    EntryType.ACCOUNT: ("@", "Account", "A general login, like an email", Color.VIOLET),
+    EntryType.BACKUP_CODES: ("B", "Backup codes", "A set of one time codes", Color.AMBER),
 }
 
 
@@ -105,7 +106,8 @@ class _TypeTile(QWidget):
         p.setPen(QColor(Color.TEXT_DIM))
         p.setFont(body_font(9))
         p.drawText(QRectF(rect.left() + 10, rect.top() + 130, rect.width() - 20, 40),
-                   Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop, self._desc)
+                   Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop | Qt.TextFlag.TextWordWrap,
+                   self._desc)
         p.end()
 
 
@@ -169,6 +171,10 @@ class AddEntryWizard(QWidget):
         while body.count():
             item = body.takeAt(0)
             if item.widget():
+                # hide right away — deleteLater() only runs once the event loop
+                # is idle, and a transparent-background widget left visible
+                # until then bleeds through whatever gets drawn in its place
+                item.widget().hide()
                 item.widget().deleteLater()
             elif item.layout():
                 self._drop_layout(item.layout())
@@ -177,6 +183,10 @@ class AddEntryWizard(QWidget):
         while layout.count():
             item = layout.takeAt(0)
             if item.widget():
+                # hide right away — deleteLater() only runs once the event loop
+                # is idle, and a transparent-background widget left visible
+                # until then bleeds through whatever gets drawn in its place
+                item.widget().hide()
                 item.widget().deleteLater()
             elif item.layout():
                 self._drop_layout(item.layout())
@@ -197,7 +207,7 @@ class AddEntryWizard(QWidget):
         row = QHBoxLayout()
         row.setSpacing(Space.LG)
         row.addStretch(1)
-        for etype in (EntryType.APPLICATION, EntryType.WEBSITE, EntryType.BACKUP_CODES):
+        for etype in (EntryType.APPLICATION, EntryType.WEBSITE, EntryType.ACCOUNT, EntryType.BACKUP_CODES):
             tile = _TypeTile(etype)
             tile.chosen.connect(self._choose_type)
             row.addWidget(tile)
@@ -248,15 +258,16 @@ class AddEntryWizard(QWidget):
         if not self._password:
             self._password = generator.generate_password(self._opts)
 
+        body.addWidget(_field_label("Type your own password, or generate one"))
         top = QHBoxLayout()
-        self._pw_label = QLabel(self._password)
-        self._pw_label.setFont(mono_font(15))
-        self._pw_label.setWordWrap(True)
-        self._pw_label.setStyleSheet(f"color: {Color.TEXT};")
+        self._pw_in = QLineEdit(self._password)
+        self._pw_in.setFont(mono_font(15))
+        self._pw_in.setMinimumHeight(40)
+        self._pw_in.textEdited.connect(self._on_password_edited)
         regen = Button("↻", variant="ghost")
         regen.setFixedWidth(56)
         regen.clicked.connect(self._regenerate)
-        top.addWidget(self._pw_label, 1)
+        top.addWidget(self._pw_in, 1)
         top.addWidget(regen)
         body.addLayout(top)
 
@@ -312,12 +323,16 @@ class AddEntryWizard(QWidget):
                 f"QCheckBox::indicator:checked {{ background: {Color.ACCENT};"
                 f" border: 1px solid {Color.ACCENT}; }}")
 
+    def _on_password_edited(self, text: str) -> None:
+        self._password = text
+        self._refresh_strength()
+
     def _regenerate(self) -> None:
         try:
             self._password = generator.generate_password(self._opts)
         except ValueError:
             return
-        self._pw_label.setText(self._password)
+        self._pw_in.setText(self._password)
         self._refresh_strength()
 
     def _on_length(self, value: int) -> None:
@@ -343,8 +358,8 @@ class AddEntryWizard(QWidget):
             cb.blockSignals(False)
 
     def _refresh_strength(self) -> None:
-        score = generator.strength_score(self._password, self._opts)
-        bits = generator.entropy_bits(self._password, self._opts)
+        score = generator.strength_score(self._password)
+        bits = generator.entropy_bits(self._password)
         self._meter.set_value(score)
         self._entropy_lbl.setText(f"{len(self._password)} characters · {bits:.0f} bits of entropy")
 

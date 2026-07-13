@@ -23,6 +23,7 @@ class Color:
     ACCENT_SOFT = "#274690"
     TEAL = "#2FB6A6"
     AMBER = "#D99A3D"
+    VIOLET = "#8B7FE0"
 
     SUCCESS = "#3FBF7F"
     WARNING = "#D99A3D"

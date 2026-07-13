@@ -21,11 +21,12 @@ to create, breach, or lose access to.
 
 ## Features
 
-- **Passwords, websites, and one-time backup codes** organized by service,
-  with multiple accounts per service where you need it (work email, alt
-  accounts, etc).
+- **Applications, websites, general accounts, and one time backup codes** —
+  organized by service, with multiple accounts per service where you need it
+  (work email, alt accounts, etc).
 - **Password generator** — 12 to 64 characters, guarantees a mix of
-  character classes, shows a live strength meter and entropy estimate.
+  character classes, shows a live strength meter and entropy estimate. Or
+  skip it and type your own — either way it's sealed the same.
 - **TOTP / 2FA codes** — store the seed once, get rolling 6-digit codes with
   a visible countdown, no separate authenticator app required.
 - **Auto-locking** — the vault locks itself after 5 minutes idle, on demand

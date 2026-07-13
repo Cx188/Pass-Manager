@@ -24,11 +24,13 @@ from ui.widgets.glass import SectionHeader
 _TYPE_ACCENT = {
     EntryType.APPLICATION: Color.ACCENT,
     EntryType.WEBSITE: Color.TEAL,
+    EntryType.ACCOUNT: Color.VIOLET,
     EntryType.BACKUP_CODES: Color.AMBER,
 }
 _CATEGORIES = [
     ("All items", None),
     ("Applications", EntryType.APPLICATION),
+    ("Accounts", EntryType.ACCOUNT),
     ("Websites", EntryType.WEBSITE),
     ("Backup codes", EntryType.BACKUP_CODES),
 ]
@@ -152,12 +154,17 @@ class DashboardScreen(QWidget):
 
     def refresh(self) -> None:
         names = {None: "All items", EntryType.APPLICATION: "Applications",
-                 EntryType.WEBSITE: "Websites", EntryType.BACKUP_CODES: "Backup codes"}
+                 EntryType.ACCOUNT: "Accounts", EntryType.WEBSITE: "Websites",
+                 EntryType.BACKUP_CODES: "Backup codes"}
         self._header.setTitle(names[self._filter])
 
         while self._grid.count():
             item = self._grid.takeAt(0)
             if item.widget():
+                # hide right away — deleteLater() only runs once the event loop
+                # is idle, and a transparent-background widget left visible
+                # until then bleeds through whatever gets drawn in its place
+                item.widget().hide()
                 item.widget().deleteLater()
 
         services = self._vault.services(type=self._filter, query=self._query or None)

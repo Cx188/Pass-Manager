@@ -72,13 +72,27 @@ def generate_password(options: PasswordOptions | None = None) -> str:
     return "".join(chars)
 
 
-def entropy_bits(password: str, options: PasswordOptions | None = None) -> float:
-    """Estimate password entropy in bits from the effective character pool."""
-    opts = options or PasswordOptions()
-    pool = len(set("".join(opts.classes()))) or len(set(password)) or 1
-    return len(password) * math.log2(pool)
+def _pool_size(password: str) -> int:
+    """Effective character-pool size, detected from what the password actually
+    contains — not from generator settings, since a typed-in password may not
+    match whatever the class checkboxes happen to say."""
+    size = 0
+    if any(c in UPPER for c in password):
+        size += len(UPPER)
+    if any(c in LOWER for c in password):
+        size += len(LOWER)
+    if any(c in DIGITS for c in password):
+        size += len(DIGITS)
+    if any(c not in UPPER + LOWER + DIGITS for c in password):
+        size += len(DEFAULT_SYMBOLS)
+    return size or len(set(password)) or 1
 
 
-def strength_score(password: str, options: PasswordOptions | None = None) -> float:
+def entropy_bits(password: str) -> float:
+    """Estimate password entropy in bits from the character classes it contains."""
+    return len(password) * math.log2(_pool_size(password))
+
+
+def strength_score(password: str) -> float:
     """Map entropy to a 0.0-1.0 meter value (saturates at ~120 bits)."""
-    return max(0.0, min(1.0, entropy_bits(password, options) / 120.0))
+    return max(0.0, min(1.0, entropy_bits(password) / 120.0))

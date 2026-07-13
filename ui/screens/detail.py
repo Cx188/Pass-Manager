@@ -309,6 +309,10 @@ class DetailScreen(QWidget):
         while self._root.count():
             item = self._root.takeAt(0)
             if item.widget():
+                # hide right away — deleteLater() only runs once the event loop
+                # is idle, and a transparent-background widget left visible
+                # until then bleeds through whatever gets drawn in its place
+                item.widget().hide()
                 item.widget().deleteLater()
             elif item.layout():
                 self._drop(item.layout())
@@ -317,6 +321,10 @@ class DetailScreen(QWidget):
         while layout.count():
             item = layout.takeAt(0)
             if item.widget():
+                # hide right away — deleteLater() only runs once the event loop
+                # is idle, and a transparent-background widget left visible
+                # until then bleeds through whatever gets drawn in its place
+                item.widget().hide()
                 item.widget().deleteLater()
             elif item.layout():
                 self._drop(item.layout())

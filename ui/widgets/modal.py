@@ -108,7 +108,7 @@ class RecoveryCodeModal(ModalOverlay):
         code_box.setWordWrap(True)
         code_box.setStyleSheet(
             f"color: {Color.TEXT}; background: {Color.BG_RAISED};"
-            f"border: 1px solid rgba(217,154,61,0.4); border radius: 10px; padding: 16px;"
+            f"border: 1px solid rgba(217,154,61,0.4); border-radius: 10px; padding: 16px;"
         )
         b.addWidget(code_box)
 

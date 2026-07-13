@@ -44,6 +44,7 @@ def _b64d(s: str) -> bytes:
 class EntryType(str, Enum):
     APPLICATION = "application"
     WEBSITE = "website"
+    ACCOUNT = "account"
     BACKUP_CODES = "backup_codes"
 
 
