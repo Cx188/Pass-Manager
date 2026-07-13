@@ -1,5 +1,5 @@
 # Pass Manager
-
+(CURRENTLY ONLY FOR LINUX USERS, WINDOWS COMING SOON.)
 A local first password manager built for people who don't want their passwords living on some random company  servers.
 
 Everything stays on your machine. Passwords, backup codes, recovery codes, TOTP (2FA) secrets
@@ -102,7 +102,8 @@ python3 -m data.selftest   # full vault lifecycle + no-plaintext-on-disk check
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT 
+see [LICENSE](LICENSE).
 
 Thx for using the app, for any suggestions or issues feel free to report here or contact me via my email
 m.deiab08@gmail.com
