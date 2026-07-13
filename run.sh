@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-# Launch Pass Manager, creating the virtualenv on first run.
+# Launch Pass Manager, installing dependencies for this user on first run.
 set -e
 cd "$(dirname "$0")"
 
-if [ ! -d .venv ]; then
-    echo "First run: creating virtualenv and installing dependencies..."
-    python3 -m venv .venv
-    .venv/bin/pip install --upgrade pip
-    .venv/bin/pip install -r requirements.txt
+if ! python3 -c "import PySide6, cryptography, argon2, secretstorage, pyotp" >/dev/null 2>&1; then
+    echo "First run: installing dependencies..."
+    python3 -m pip install --user --no-warn-script-location -r requirements.txt \
+        || python3 -m pip install --user --break-system-packages --no-warn-script-location -r requirements.txt
 fi
 
-exec .venv/bin/python main.py
+exec python3 main.py

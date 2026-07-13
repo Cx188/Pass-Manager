@@ -74,19 +74,17 @@ cd pass-manager
 ./install.sh
 ```
 
-`install.sh` installs any missing system Python packages, creates a
-virtual environment, installs the app's dependencies into it, and — after
-asking — adds Pass Manager to your applications menu with its own icon, so
-it shows up like any other installed app. Nothing is installed outside this
-folder; uninstalling is just deleting the directory (and, if you added it,
+`install.sh` installs any missing system Python packages, installs the app's
+Python dependencies for your user, and — after asking — adds Pass Manager to
+your applications menu with its own icon, so it shows up like any other
+installed app. Uninstalling is deleting the directory (and, if you added it,
 the Start Menu entry via `./install.sh --uninstall-menu-entry`).
 
 Prefer to do it by hand?
 
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-.venv/bin/python main.py
+pip install --user -r requirements.txt
+python3 main.py
 ```
 
 or just run `./run.sh`, which does the same thing and launches the app.
@@ -96,8 +94,8 @@ or just run `./run.sh`, which does the same thing and launches the app.
 Don't take the security claims on faith — the test suite proves them:
 
 ```bash
-.venv/bin/python -m core.selftest   # crypto primitives, wrong-key = unrecoverable
-.venv/bin/python -m data.selftest   # full vault lifecycle + no-plaintext-on-disk check
+python3 -m core.selftest   # crypto primitives, wrong-key = unrecoverable
+python3 -m data.selftest   # full vault lifecycle + no-plaintext-on-disk check
 ```
 
 ## License

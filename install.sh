@@ -13,34 +13,33 @@ die()   { printf '\033[1;31mERROR:\033[0m %s\n' "$1" >&2; exit 1; }
 
 # --------------------------------------------------------------------- system
 install_system_deps() {
-    if command -v python3 >/dev/null 2>&1 && python3 -c "import venv" >/dev/null 2>&1 && python3 -c "import ensurepip" >/dev/null 2>&1; then
+    if command -v python3 >/dev/null 2>&1 && python3 -c "import ensurepip" >/dev/null 2>&1; then
         return
     fi
-    info "Installing Python (venv/pip) via your package manager — you may be asked for your password."
+    info "Installing Python + pip via your package manager — you may be asked for your password."
     if command -v dnf >/dev/null 2>&1; then
-        sudo dnf install -y python3 python3-pip python3-virtualenv
+        sudo dnf install -y python3 python3-pip
     elif command -v apt-get >/dev/null 2>&1; then
-        sudo apt-get update -y && sudo apt-get install -y python3 python3-venv python3-pip
+        sudo apt-get update -y && sudo apt-get install -y python3 python3-pip
     elif command -v pacman >/dev/null 2>&1; then
         sudo pacman -Sy --noconfirm python python-pip
     elif command -v zypper >/dev/null 2>&1; then
-        sudo zypper install -y python3 python3-pip python3-virtualenv
+        sudo zypper install -y python3 python3-pip
     else
-        die "couldn't find dnf/apt/pacman/zypper — install Python 3.10+ (with venv/pip) yourself and re-run."
+        die "couldn't find dnf/apt/pacman/zypper — install Python 3.10+ (with pip) yourself and re-run."
     fi
 }
 
 install_system_deps
 
-# --------------------------------------------------------------------- venv
-info "Creating virtual environment and installing dependencies…"
-python3 -m venv .venv
-.venv/bin/pip install --upgrade pip -q
-.venv/bin/pip install -r requirements.txt -q
+# --------------------------------------------------------------------- deps
+info "Installing dependencies…"
+python3 -m pip install --user -q --no-warn-script-location -r requirements.txt \
+    || python3 -m pip install --user --break-system-packages -q --no-warn-script-location -r requirements.txt
 info "Dependencies installed."
 
 # --------------------------------------------------------------------- icon
-.venv/bin/python - <<'PY' >/dev/null 2>&1 || true
+python3 - <<'PY' >/dev/null 2>&1 || true
 from PySide6.QtWidgets import QApplication
 import sys
 app = QApplication(sys.argv)
@@ -106,4 +105,7 @@ fi
 
 echo
 info "Done. Launch Pass Manager with:  ./run.sh"
-[ "$want_entry" = "y" ] && info "…or find \"Pass Manager\" in your Start Menu / app launcher."
+if [ "$want_entry" = "y" ]; then
+    info "…or find \"Pass Manager\" in your Start Menu / app launcher."
+fi
+exit 0

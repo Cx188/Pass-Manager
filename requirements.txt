@@ -1,12 +1,12 @@
 # Pass Manager runtime dependencies — Python 3.10+
-# Install:  pip install -r requirements.txt   then   python main.py
+# Install:  pip install --user -r requirements.txt   then   python3 main.py
 # (or just:  ./run.sh)
 
 # --- GUI ---
 PySide6>=6.8
 
 # --- Cryptography ---
-cryptography>=43.0          # AES-256-GCM, HKDF
+cryptography>=44.0          # AES-256-GCM, HKDF
 argon2-cffi>=23.1.0         # Argon2id KDF (recovery path)
 
 # --- System keyring (Secret Service: GNOME Keyring / KWallet) ---
@@ -15,4 +15,4 @@ SecretStorage>=3.3          # freedesktop Secret Service D-Bus client;
                             # local key file with an on-screen notice.
 
 # --- Optional features ---
-pyotp>=2.9.0                # TOTP / 2FA code generation
+pyotp>=2.10.0                # TOTP / 2FA code generation
