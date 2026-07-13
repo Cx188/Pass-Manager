@@ -1,4 +1,4 @@
-"""Add-entry wizard: type -> details -> password -> save, with animated steps."""
+"""Add entry wizard: type -> details -> password -> save, with animated steps."""
 
 from __future__ import annotations
 

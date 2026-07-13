@@ -13,7 +13,7 @@ from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 
 from core.errors import KeyDerivationError
 
-# --- Argon2id parameters (the recovery-code KDF) -------------------------------
+# --- Argon2id parameters (the recovery code KDF) -------------------------------
 ARGON2_TIME_COST = 4          # iterations
 ARGON2_MEMORY_COST = 262_144  # KiB == 256 MiB
 ARGON2_PARALLELISM = 4        # lanes

@@ -89,8 +89,8 @@ class Vault:
 
     # ------------------------------------------------------------- first run
     def initialize(self, provider: Provider | None = None) -> InitResult:
-        """Create a brand-new vault, leaving it unlocked. Returns the one-time
-        recovery code — callers must show it once and never persist it."""
+        """Create a brand new vault, leaving it unlocked. Returns the one time
+        recovery code. Callers must show it once and never persist it."""
         if self.exists():
             raise VaultStateError("A vault already exists at this location")
         if provider is None:

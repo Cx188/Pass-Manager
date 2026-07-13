@@ -1,5 +1,5 @@
 """Application controller: hosts the screen stack and the state machine
-(setup -> lock -> dashboard -> wizard/detail), plus idle auto-lock and the
+(setup -> lock -> dashboard -> wizard/detail), plus idle auto lock and the
 clipboard manager.
 """
 
@@ -52,7 +52,7 @@ class PassManagerApp:
         self.window.set_content(self.stack)
         self._wire()
 
-        # one-second tick to refresh the idle indicator while unlocked
+        # one second tick to refresh the idle indicator while unlocked
         self._idle_ui = QTimer(self.window)
         self._idle_ui.setInterval(1000)
         self._idle_ui.timeout.connect(self._update_idle_label)

@@ -1,4 +1,4 @@
-"""Idle auto-lock watcher.
+"""Idle auto lock watcher.
 
 Installs a global event filter; any mouse/keyboard activity resets a single-shot
 timer. When the timer fires (default 5 min) it emits :attr:`timed_out`, which the

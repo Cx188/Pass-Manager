@@ -1,6 +1,6 @@
 """TOTP / 2FA helpers (thin wrapper over pyotp).
 
-Used at reveal time to show a rolling 6-digit code with the seconds remaining in
+Used at reveal time to show a rolling 6 digit code with the seconds remaining in
 the current period. The TOTP seed itself is stored sealed under the DEK and only
 decrypted on demand (see repository.reveal_totp).
 """

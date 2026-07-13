@@ -1,5 +1,5 @@
-"""First-run setup screen: create the vault, show the one-time recovery code,
-enroll the system-keyring protection.
+"""First run setup screen: create the vault, show the one time recovery code,
+enroll the system keyring protection.
 """
 
 from __future__ import annotations
@@ -49,7 +49,7 @@ class SetupScreen(QWidget):
         b.addWidget(title)
 
         sub = QLabel("A new encryption key will be generated and protected by your "
-                     "system keyring, with a one-time recovery code as a backup.")
+                     "system keyring, with a one time recovery code as a backup.")
         sub.setAlignment(Qt.AlignmentFlag.AlignCenter)
         sub.setWordWrap(True)
         sub.setFont(body_font(11))
@@ -57,11 +57,11 @@ class SetupScreen(QWidget):
         b.addWidget(sub)
 
         b.addSpacing(Space.SM)
-        b.addWidget(SectionHeader("What happens next"))
-        for step in ("Generate a 256-bit encryption key",
-                     "Show a one-time recovery code — save it",
-                     "Enroll system-keyring protection",
-                     "Seal the vault — nothing is ever stored in plaintext"):
+        b.addWidget(SectionHeader("What happens next?"))
+        for step in ("Generate a 256 bit encryption key",
+                     "Show a one time recovery code, save it",
+                     "Enroll system keyring protection",
+                     "Seal the vault, nothing is ever stored in plaintext"):
             line = QLabel(f"·  {step}")
             line.setFont(body_font(10))
             line.setStyleSheet(f"color: {Color.TEXT_DIM};")
@@ -89,8 +89,8 @@ class SetupScreen(QWidget):
         from core import keyring
 
         if keyring.secret_service_available():
-            return "System keyring detected — it'll be used to unlock automatically."
-        return "No system keyring found — falling back to a local key file (weaker)."
+            return "System keyring detected, it will be used to unlock automatically."
+        return "No system keyring found, falling back to a local key file (weaker)."
 
     def _start(self) -> None:
         if self._busy:
@@ -109,7 +109,7 @@ class SetupScreen(QWidget):
             provider = keyring.detect_provider()
             result = self._vault.initialize(provider=provider)
         except UnlockCancelledError:
-            self._fail("Keyring access cancelled — click Create vault to retry")
+            self._fail("Keyring access cancelled, click Create vault to retry")
             return
         except CryptoError as exc:
             self._fail(f"Setup failed: {exc}")

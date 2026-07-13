@@ -1,7 +1,7 @@
-"""One-time recovery code: generation (CSPRNG) and the Argon2id KDF that turns
+"""One time recovery code: generation (CSPRNG) and the Argon2id KDF that turns
 it into a wrapping key.
 
-The recovery code is the backup unlock path — it works even if the keyring
+The recovery code is the backup unlock path, it works even if the keyring
 secret is lost. Shown to the user exactly once and never stored in plaintext;
 only the Argon2id salt/params and the resulting wrapped key persist on disk.
 """
@@ -44,7 +44,7 @@ def normalize_recovery_code(code: str) -> bytes:
 
 
 def new_salt() -> bytes:
-    """Fresh 128-bit Argon2id salt (CSPRNG)."""
+    """Fresh 128 bit Argon2id salt (CSPRNG)."""
     return secrets.token_bytes(SALT_LEN)
 
 
@@ -56,7 +56,7 @@ def derive_kek_b(
     memory_cost: int = ARGON2_MEMORY_COST,
     parallelism: int = ARGON2_PARALLELISM,
 ) -> bytearray:
-    """Derive KEK-B from the recovery code via Argon2id. Returns a wipeable buffer.
+    """Derive KEK B from the recovery code via Argon2id. Returns a wipeable buffer.
 
     The cost parameters must match those used when the recovery copy was sealed
     (the caller reads them back from the manifest), so that raising the module

@@ -1,4 +1,4 @@
-"""Overlay modals: a dimming backdrop plus the recovery-code, confirm, and
+"""Overlay modals: a dimming backdrop plus the recovery code, confirm, and
 toast variants used across the screens.
 """
 
@@ -79,7 +79,7 @@ class ModalOverlay(QWidget):
 
 
 class RecoveryCodeModal(ModalOverlay):
-    """The one-time recovery-code gate shown right after setup."""
+    """The one time recovery code gate shown right after setup."""
 
     confirmed = Signal()
 
@@ -108,7 +108,7 @@ class RecoveryCodeModal(ModalOverlay):
         code_box.setWordWrap(True)
         code_box.setStyleSheet(
             f"color: {Color.TEXT}; background: {Color.BG_RAISED};"
-            f"border: 1px solid rgba(217,154,61,0.4); border-radius: 10px; padding: 16px;"
+            f"border: 1px solid rgba(217,154,61,0.4); borderradius: 10px; padding: 16px;"
         )
         b.addWidget(code_box)
 

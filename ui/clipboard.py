@@ -1,4 +1,4 @@
-"""Clipboard with visible auto-clear countdown.
+"""Clipboard with visible auto clear countdown.
 
 Copies a secret to the system clipboard and clears it after N seconds. Clearing
 only happens if the clipboard *still holds our value* — so we never wipe whatever

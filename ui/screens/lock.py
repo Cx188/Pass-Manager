@@ -1,4 +1,4 @@
-"""Lock screen: unlock via the system keyring, with a recovery-code fallback."""
+"""Lock screen: unlock via the system keyring, with a recovery code fallback."""
 
 from __future__ import annotations
 

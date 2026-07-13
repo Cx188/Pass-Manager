@@ -1,8 +1,8 @@
-"""Entry detail / reveal: reveal/copy with auto clear + re-mask, TOTP, backup
+"""Entry detail / reveal: reveal/copy with auto clear + re mask, TOTP, backup
 codes used/unused, edit and delete.
 
 Unlocking happens once per session on the lock screen; reveals here don't
-re-prompt. The idle auto-lock and the manual Lock button are what protect the
+re prompt. The idle auto lock and the manual Lock button are what protect the
 session in between (see ui/idle.py and data/repository.py Vault.lock()).
 """
 
@@ -189,7 +189,7 @@ class AccountRow(GlassPanel):
         actions.addWidget(rm)
         b.addLayout(actions)
 
-    # reveal / re-mask
+    # reveal / re mask
     def show_password(self, pw: str, seconds: int) -> None:
         self._secret.setText(pw)
         self._secret.setStyleSheet(f"color: {Color.TEXT};")

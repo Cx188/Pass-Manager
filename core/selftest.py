@@ -6,7 +6,7 @@ Run:
                                         # (may prompt once to unlock it)
 
 Proves: envelope wrap/unwrap on both unlock paths, that a wrong credential
-makes the DEK unobtainable, recovery-code + generator behavior, and keyring
+makes the DEK unobtainable, recovery code + generator behavior, and keyring
 signature determinism.
 """
 

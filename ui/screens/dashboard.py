@@ -113,7 +113,7 @@ class DashboardScreen(QWidget):
         self._search.textChanged.connect(self._on_search)
         bar.addWidget(self._search, 1)
 
-        self._idle = _dim("Auto-lock in 5:00", 10)
+        self._idle = _dim("Auto lock in 5:00", 10)
         bar.addWidget(self._idle)
         add = Button("Add", variant="primary")
         add.setFixedWidth(100)

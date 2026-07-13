@@ -3,8 +3,8 @@
 Run:
     python -m data.selftest
 
-Uses the key-file provider (no keyring prompts) and the recovery path, so it
-runs fully non-interactively. Proves: first-run setup, CRUD, on-demand reveal,
+Uses the key file provider (no keyring prompts) and the recovery path, so it
+runs fully non-interactively. Proves: first run setup, CRUD, on-demand reveal,
 search, that NO plaintext secret or metadata reaches disk, lock-wipes-state,
 and that a fresh Vault can re-open and decrypt via both the primary (key-file)
 and recovery paths.
