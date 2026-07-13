@@ -28,7 +28,7 @@ class RecoveryUnlockModal(ModalOverlay):
         title.setStyleSheet(f"color: {Color.TEXT};")
         b.addWidget(title)
 
-        sub = QLabel("Enter your one-time recovery code to unlock without the system keyring.")
+        sub = QLabel("Enter your one time recovery code to unlock without the system keyring.")
         sub.setWordWrap(True)
         sub.setFont(body_font(11))
         sub.setStyleSheet(f"color: {Color.TEXT_DIM};")

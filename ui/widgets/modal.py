@@ -95,7 +95,7 @@ class RecoveryCodeModal(ModalOverlay):
         b.addWidget(title)
 
         sub = QLabel("This code is shown once. It's the only way back into your vault if "
-                     "the system keyring or this device is lost — store it somewhere safe "
+                     "the system keyring or this device is lost, store it somewhere safe "
                      "and offline.")
         sub.setWordWrap(True)
         sub.setFont(body_font(11))
@@ -108,7 +108,7 @@ class RecoveryCodeModal(ModalOverlay):
         code_box.setWordWrap(True)
         code_box.setStyleSheet(
             f"color: {Color.TEXT}; background: {Color.BG_RAISED};"
-            f"border: 1px solid rgba(217,154,61,0.4); border-radius: 10px; padding: 16px;"
+            f"border: 1px solid rgba(217,154,61,0.4); border radius: 10px; padding: 16px;"
         )
         b.addWidget(code_box)
 

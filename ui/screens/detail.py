@@ -1,4 +1,4 @@
-"""Entry detail / reveal: reveal/copy with auto-clear + re-mask, TOTP, backup
+"""Entry detail / reveal: reveal/copy with auto clear + re-mask, TOTP, backup
 codes used/unused, edit and delete.
 
 Unlocking happens once per session on the lock screen; reveals here don't

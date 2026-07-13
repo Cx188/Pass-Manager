@@ -138,7 +138,7 @@ class DashboardScreen(QWidget):
         scroll.setWidget(self._cards_host)
         lay.addWidget(scroll, 1)
 
-        self._empty = QLabel("No entries yet — click Add to create one.")
+        self._empty = QLabel("No entries yet. click Add to create one.")
         self._empty.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self._empty.setFont(body_font(11))
         self._empty.setStyleSheet(f"color: {Color.TEXT_FAINT};")
@@ -179,4 +179,4 @@ class DashboardScreen(QWidget):
 
     def set_idle_remaining(self, seconds: int) -> None:
         m, s = divmod(max(0, seconds), 60)
-        self._idle.setText(f"Auto-lock in {m}:{s:02d}")
+        self._idle.setText(f"Auto lock in {m}:{s:02d}")
