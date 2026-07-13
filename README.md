@@ -1,5 +1,6 @@
 # Pass Manager
 (CURRENTLY ONLY FOR LINUX USERS, WINDOWS COMING SOON.)
+
 A local first password manager built for people who don't want their passwords living on some random company  servers.
 
 Everything stays on your machine. Passwords, backup codes, recovery codes, TOTP (2FA) secrets
